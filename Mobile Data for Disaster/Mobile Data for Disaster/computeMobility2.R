@@ -163,11 +163,23 @@ for(i in 1:nrow(user_loc)){
 
         username=user_loc$name_lists[i];
 
-        loc_normal = all_dat_byName_fill %>% filter(name==username & disaster_type=="normal") %>% dplyr::select(latlong) %>% head(1) %>% as.data.frame();
-        loc_volcano = all_dat_byName_fill %>% filter(name==username & disaster_type=="volcano") %>% dplyr::select(latlong) %>% head(1) %>% as.data.frame();
+        loc_normal = all_dat_byName_fill %>% filter(name==username & disaster_type=="normal") %>% dplyr::select(latlong) %>% as.data.frame();
+        loc_volcano = all_dat_byName_fill %>% filter(name==username & disaster_type=="volcano") %>% dplyr::select(latlong) %>% as.data.frame();
 
-        latlong_normal = loc_normal$latlong[1];
-        latlong_volcano = loc_volcano$latlong[1];
+        count_loc_normal = loc_normal %>% group_by(latlong) %>% summarise(jml=n()) %>% arrange(jml) %>% as.data.frame();
+        count_loc_volcano = loc_volcano %>% group_by(latlong) %>% summarise(jml=n()) %>% arrange(jml) %>% as.data.frame();
+
+        if(nrow(count_loc_normal)!=0){
+                latlong_normal = count_loc_normal$latlong[nrow(count_loc_normal)];
+        } else{
+                latlong_normal = NA;
+        }
+
+        if(nrow(count_loc_volcano)!=0){
+                latlong_volcano = count_loc_volcano$latlong[nrow(count_loc_volcano)];
+        } else{
+                latlong_volcano = NA;
+        }
 
         if(is.na(latlong_normal)){
                 user_loc$normal_lat[i]=NA;
