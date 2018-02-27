@@ -325,4 +325,13 @@ for(i in 1:nrow(user_loc_prov)){
 ## Possibilities: Using connection created by port and airport
 #############
 
+#############
+## Port Location
+#############
+
+lolowai_harbor_ambae = c(167.9731783,-15.3048188);
+
+longana_airport_ambae = c(167.967222,-15.306666);
+walaha_airport_ambae = c(167.5525168,-15.4127448);
+redcliff_airport_ambae = c(167.833333,-15.466667);
 
